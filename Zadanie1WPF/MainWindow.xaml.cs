@@ -125,9 +125,6 @@ namespace Zadanie1WPF
         public bool NameValidation(string name)
         {
 
-
-
-
             Regex.Replace(name, @"\s+", "");
 
             bool stringVal = name.All(Char.IsLetter);
