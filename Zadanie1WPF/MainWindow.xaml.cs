@@ -24,50 +24,50 @@ namespace Zadanie1WPF
     {
         public MainWindow()
         {
-           
+
             InitializeComponent();
 
         }
         public string PublicName { get; set; }
 
         public string PublicAge { get; set; }
-       
+
         public string resulty = "0";
 
         public bool containsIntName { get; set; }
 
-        public string imie { get; set; }
-        public string wiek { get; set; }
-        public int wiekInt { get; set; }
+        public string name { get; set; }
+        public string age { get; set; }
+        public int ageInt { get; set; }
 
 
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
-            imie = TextBoxName.Text;
-            wiek = TextBoxWiek.Text;
 
-            NameValidation(imie);
-            AgeValidation(wiek);
-            Validation(imie, wiek);
+
+            NameValidation(name);
+            AgeValidation(age);
+            Validation(name, age);
 
         }
 
 
-        public void Validation(string imie, string wiek)
+        public void Validation(string name, string age)
         {
 
 
-            if (NameValidation(imie))
+
+            if (NameValidation(name))
             {
 
                 if (true)
                 {
 
-                    Alert.Text = $"Witaj {imie}!";
+                    Alert.Text = $"Witaj {name}!";
 
-                    if (AgeValidation(wiek))
+                    if (AgeValidation(age))
                     {
 
                         if (true && resulty == "1")
@@ -88,7 +88,7 @@ namespace Zadanie1WPF
                     }
                     else
                     {
-                        TextBoxWiek.Clear();
+                        TextBoxAge.Clear();
                         result.Text = "Błędne dane(wiek)";
 
 
@@ -122,18 +122,18 @@ namespace Zadanie1WPF
 
 
 
-        public bool NameValidation(string imie)
+        public bool NameValidation(string name)
         {
 
 
 
 
-            Regex.Replace(imie, @"\s+", "");
+            Regex.Replace(name, @"\s+", "");
 
-            bool stringVal = imie.All(Char.IsLetter);
+            bool stringVal = name.All(Char.IsLetter);
             bool containsIntName;
 
-            containsIntName = imie.All(c => (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
+            containsIntName = name.All(c => (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
             if (containsIntName == false && stringVal == false)
             {
 
@@ -145,20 +145,13 @@ namespace Zadanie1WPF
 
         }
 
-        public bool AgeValidation(string wiek)
-
-
+        public bool AgeValidation(string age)
         {
-
-            wiek = TextBoxWiek.Text;
-
-
-
 
             try
             {
 
-                wiekInt = Int16.Parse(wiek);
+                ageInt = Int16.Parse(age);
 
 
 
@@ -170,7 +163,7 @@ namespace Zadanie1WPF
                 return false;
 
             }
-            if (wiekInt < 0 || wiekInt > 150)
+            if (ageInt < 0 || ageInt > 150)
             {
 
                 return false;
@@ -179,23 +172,23 @@ namespace Zadanie1WPF
 
             }
 
-            else if (wiekInt >= 18)
+            else if (ageInt >= 18)
             {
 
                 resulty = "1";
             }
             else
             {
-                if (wiekInt < 18)
+                if (ageInt < 18)
                 {
                     resulty = "0";
 
 
                 }
 
-                foreach (char c in wiek)
+                foreach (char c in age)
                 {
-                    if (wiek == "")
+                    if (age == "")
                     {
                         return false;
 

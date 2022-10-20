@@ -16,7 +16,7 @@
         <TextBlock>Podaj wiek:</TextBlock>
 
         <Border BorderThickness="0.5px" BorderBrush="Black">
-            <TextBox Name="TextBoxWiek" Text="{Binding ElementName=thisWindow, Path=PublicAge}" Background="White"/>
+            <TextBox Name="TextBoxAge" Text="{Binding ElementName=thisWindow, Path=PublicAge}" Background="White"/>
         </Border>
         <TextBlock></TextBlock>
 
