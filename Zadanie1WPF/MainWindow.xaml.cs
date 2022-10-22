@@ -24,28 +24,47 @@ namespace Zadanie1WPF
     {
         public MainWindow()
         {
-
             InitializeComponent();
-
         }
-        public string PublicName { get; set; }
 
-        public string PublicAge { get; set; }
+        private string _publicName = "";
+        public string PublicName
+        {
+            get
+            {
+                return _publicName;
+            }
+            set
+            {
+                _publicName = value;
+            }
+        }
 
-        public string resulty = "0";
+        private string _publicAge = "";
+        public string PublicAge
+        {
+            get
+            {
+                return _publicAge;
+            }
+            set
+            {
+                _publicAge = value;
+            }
+        }
+
+        public bool resulty = true;
 
         public bool containsIntName { get; set; }
 
-        public string name { get; set; }
-        public string age { get; set; }
-        public int ageInt { get; set; }
+        public bool nullName;
 
-
-
+        public bool nullAge;
+        
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
-
+            string name = TextBoxName.Text;
+            string age = TextBoxAge.Text;
 
             NameValidation(name);
             AgeValidation(age);
@@ -53,158 +72,165 @@ namespace Zadanie1WPF
 
         }
 
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            AgeValidation(PublicAge);
+            NameValidation(PublicName);
+            Validation(PublicName, PublicAge);
+        }
 
-        public void Validation(string name, string age)
+        public void Validation(string userName, string userAge)
         {
 
 
 
-            if (NameValidation(name))
+            if (NameValidation(userName) && (userName != "" || userAge != ""))
             {
 
-                if (true)
+
+
+                if (nullName == false)
                 {
 
-                    Alert.Text = $"Witaj {name}!";
+                    Alert.Text = "Podaj imie";
+                    Alert.Foreground = Brushes.Red;
+                } else 
+                 if (nullAge == false)
+                {
+                    Alert.Text = "Podaj wiek";
+                    Alert.Foreground = Brushes.Red;
+                } else 
+                 
+                {
 
-                    if (AgeValidation(age))
+
+                    if (AgeValidation(userAge))
                     {
 
-                        if (true && resulty == "1")
-                        {
+                        
 
+
+
+                        if (resulty)
+                        {
+                            Alert.Text = $"Witaj {userName}!";
                             result.Text = "Użytkownik jest pełnoletni";
+                            result.Foreground = Brushes.Green;
+                            Alert.Foreground = Brushes.Green;
 
 
                         }
-                        else if (resulty == "0")
+                        else
                         {
+                            Alert.Text = $"Witaj {userName}!";
                             result.Text = "Użytkownik nie jest pełnoletni";
-
-
+                            Alert.Foreground = Brushes.Green;
+                            result.Foreground = Brushes.Green;
                         }
 
 
                     }
                     else
                     {
+                        result.Foreground = null;
                         TextBoxAge.Clear();
+
                         result.Text = "Błędne dane(wiek)";
 
-
                     }
-
+                   
+                
+                }
                 }
 
-            }
-            else
-            {
-
-                TextBoxName.Clear();
-                Alert.Text = "Niepoprawne dane(imie)";
-
-            }
+            
 
 
         }
 
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        public bool NameValidation(string userName)
         {
-
-
-            AgeValidation(PublicAge);
-            NameValidation(PublicName);
-            Validation(PublicName, PublicAge);
-
-
-        }
-
-
-
-        public bool NameValidation(string name)
-        {
-
-            Regex.Replace(name, @"\s+", "");
-
-            bool stringVal = name.All(Char.IsLetter);
-            bool containsIntName;
-
-            containsIntName = name.All(c => (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
-            if (containsIntName == false && stringVal == false)
-            {
-
-                return false;
-
-            }
-
-            return true;
-
-        }
-
-        public bool AgeValidation(string age)
-        {
-
             try
             {
+                Regex.Replace(userName, @"\s+", "");
 
-                ageInt = Int16.Parse(age);
+                bool stringVal = userName.All(Char.IsLetter);
+                bool containsIntName;
 
+                containsIntName = userName.All(c => (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
+                if (containsIntName == false && stringVal == false)
+                {
+                    return false;
+                } else
 
+                if (userName == "" || userName == " ")
+                {
+                    nullName = false;
+                    return false;
 
+                }
+                nullName = true;
+                return true;
             }
-            catch
+            catch (Exception)
             {
-
-
                 return false;
-
             }
-            if (ageInt < 0 || ageInt > 150)
+        }
+
+        //Validate age value
+        public bool AgeValidation(string age)
+        {
+            int ageInt;
+
+           
+
+
+            if (!int.TryParse(age, out ageInt))
             {
-
-                return false;
-
+                nullAge = false;
 
 
-            }
-
-            else if (ageInt >= 18)
-            {
-
-                resulty = "1";
             }
             else
             {
-                if (ageInt < 18)
+                nullAge = true;
+                if (ageInt < 0 || ageInt > 150)
                 {
-                    resulty = "0";
+                    return false;
+                }
+                else if (ageInt >= 18)
+                {
+                    resulty = true;
+                }
+                else if (ageInt < 18)
+                {
 
+                    
+
+                    foreach (char c in age)
+                    {
+                        if (age == "")
+                            return false;
+                        else if (c < '1' || c > '9')
+                            
+                        resulty = false;
+                        return false;
+                    }
 
                 }
 
-                foreach (char c in age)
-                {
-                    if (age == "")
-                    {
-                        return false;
-
-                    }
-                    else if (c < '1' || c > '9')
-                    {
-                        return false;
-                    }
-
-
-                }
-
+                return true;
             }
-            return true;
-        }
 
-        private void result_TextChanged(object sender, TextChangedEventArgs e)
-        {
 
+        
+            return false;
+            
+           
+            
+
+            
         }
     }
 }

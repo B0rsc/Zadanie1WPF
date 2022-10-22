@@ -5,34 +5,76 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Zadanie1WPF"
         mc:Ignorable="d"
-        Title="Pełnoletność" Height="450" Width="400" Name="thisWindow">
-    <StackPanel>
-        <TextBlock>Podaj imie:</TextBlock>
-        <Border BorderThickness="0.5px" BorderBrush="Black">
-            <TextBox Name="TextBoxName" Text="{Binding ElementName=thisWindow, Path=PublicName}"></TextBox>
-        </Border>
-        <TextBlock></TextBlock>
+        Title="Pełnoletność" Height="400" Width="400" Name="thisWindow" WindowStyle="SingleBorderWindow">
+    <StackPanel Margin="20">
+        <TextBlock Text="Podaj Imie"
+                   FontSize="18"
+                   FontWeight="ExtraLight"
+                   Margin="0 0 0 5" FontFamily="OCR A Extended"/>
+        
+            <TextBox Name="TextBoxName"
+                     Text="{Binding ElementName=thisWindow, Path=PublicName}"
+                     Height="30"
+                     VerticalContentAlignment="Center"
+                     BorderThickness="1 0 0 1">
+            <TextBox.Effect>
+                <DropShadowEffect/>
+            </TextBox.Effect>
+        </TextBox>
 
-        <TextBlock>Podaj wiek:</TextBlock>
-
-        <Border BorderThickness="0.5px" BorderBrush="Black">
-            <TextBox Name="TextBoxAge" Text="{Binding ElementName=thisWindow, Path=PublicAge}" Background="White"/>
-        </Border>
-        <TextBlock></TextBlock>
 
 
-        <Button Content="Sprawdź" Click="Button_Click"></Button>
-        <TextBlock></TextBlock>
-        <Border BorderThickness="1px" BorderBrush="Green">
-            <TextBox Name="Alert"></TextBox>
-        </Border>
+        <TextBlock Text="Podaj Wiek"
+                   FontSize="18"
+                   FontWeight="ExtraLight"
+                   Margin="0 15 0 5" FontFamily="OCR A Extended"/>
 
-        <TextBlock></TextBlock>
-        <Border BorderThickness="1px" BorderBrush="Black">
-            <TextBox Name="result" TextChanged="result_TextChanged"/>
-        </Border>
-        <TextBlock TextWrapping="Wrap" Height="20"><Run/><LineBreak/><Run/></TextBlock>
-        <Button Content="Sprawdź z bindowaniem" Click="Button_Click_1"/>
+        <TextBox Name="TextBoxAge" 
+                 Text="{Binding ElementName=thisWindow, Path=PublicAge}"
+                 Background="White"
+                 Height="30"
+                 VerticalContentAlignment="Center"
+                 BorderThickness="2,0,0,2">
+            <TextBox.Effect>
+                <DropShadowEffect/>
+            </TextBox.Effect>
+        </TextBox>
+
+
+
+        <Button Content="SPRAWDŹ" Click="Button_Click" 
+                Margin="0 30 0 5"
+                BorderThickness="0"
+                Height="50"
+                Foreground="#FF2E2E2E"
+                FontSize="12"
+                FontWeight="ExtraLight" Width="160" FontFamily="OCR A Extended">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFEFEEFF"/>
+                    <GradientStop Color="Green" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        
+        <Button Content="SPRAWDŹ Z BINDOWANIEM" Click="Button_Click_1"
+                BorderThickness="0"
+                Height="50"
+                Margin="0 0 0 10"
+                FontSize="14"
+                FontWeight="ExtraLight" 
+                Foreground="#FF2E2E2E" Width="195" FontFamily="OCR A Extended">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Green"/>
+                    <GradientStop Color="#FFEFEEFF" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+
+        <TextBlock Name="Alert" Foreground="#FF707070"/>
+
+        <TextBlock Name="result" Foreground="#FF707070"/>
     </StackPanel>
 
 
