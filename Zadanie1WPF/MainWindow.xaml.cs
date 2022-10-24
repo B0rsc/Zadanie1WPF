@@ -59,8 +59,8 @@ namespace Zadanie1WPF
 
         public bool nullName;
 
-        public bool nullAge;
-        
+        public bool nullAge = true;
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             string name = TextBoxName.Text;
@@ -84,71 +84,53 @@ namespace Zadanie1WPF
 
 
 
-            if (NameValidation(userName) && (userName != "" || userAge != ""))
-            {
-
-
-
-                if (nullName == false)
+          
+                if (!NameValidation(userName))
                 {
-
-                    Alert.Text = "Podaj imie";
+                    Alert.Text = "Błędne dane(imie)";
                     Alert.Foreground = Brushes.Red;
-                } else 
-                 if (nullAge == false)
-                {
-                    Alert.Text = "Podaj wiek";
-                    Alert.Foreground = Brushes.Red;
-                } else 
-                 
+
+                }
+                else
+                if (AgeValidation(userAge) == true)
                 {
 
 
-                    if (AgeValidation(userAge))
+                    if (resulty)
                     {
-
-                        
-
-
-
-                        if (resulty)
-                        {
-                            Alert.Text = $"Witaj {userName}!";
-                            result.Text = "Użytkownik jest pełnoletni";
-                            result.Foreground = Brushes.Green;
-                            Alert.Foreground = Brushes.Green;
-
-
-                        }
-                        else
-                        {
-                            Alert.Text = $"Witaj {userName}!";
-                            result.Text = "Użytkownik nie jest pełnoletni";
-                            Alert.Foreground = Brushes.Green;
-                            result.Foreground = Brushes.Green;
-                        }
+                        Alert.Text = $"Witaj {userName}!";
+                        result.Text = "Użytkownik jest pełnoletni";
+                        result.Foreground = Brushes.Green;
+                        Alert.Foreground = Brushes.Green;
 
 
                     }
                     else
                     {
-                        result.Foreground = null;
-                        TextBoxAge.Clear();
-
-                        result.Text = "Błędne dane(wiek)";
-
+                        Alert.Text = $"Witaj {userName}!";
+                        result.Text = "Użytkownik nie jest pełnoletni";
+                        Alert.Foreground = Brushes.Green;
+                        result.Foreground = Brushes.Green;
                     }
-                   
-                
+
+
                 }
-                }
+
 
             
+            else if (!AgeValidation(userAge))
+            {
+
+                Alert.Text = "Błędne dane(wiek)";
+                Alert.Foreground = Brushes.Red;
 
 
+
+
+
+            }
         }
-
-        public bool NameValidation(string userName)
+            public bool NameValidation(string userName)
         {
             try
             {
@@ -161,7 +143,8 @@ namespace Zadanie1WPF
                 if (containsIntName == false && stringVal == false)
                 {
                     return false;
-                } else
+                }
+                else
 
                 if (userName == "" || userName == " ")
                 {
@@ -183,7 +166,7 @@ namespace Zadanie1WPF
         {
             int ageInt;
 
-           
+
 
 
             if (!int.TryParse(age, out ageInt))
@@ -194,43 +177,50 @@ namespace Zadanie1WPF
             }
             else
             {
-                nullAge = true;
+
                 if (ageInt < 0 || ageInt > 150)
                 {
-                    return false;
-                }
-                else if (ageInt >= 18)
+                    foreach (char c in age)
+                    {
+                        if (age == "" || age == " ")
+                        {
+
+
+                            return false;
+                        }
+                        else if (c < '1' || c > '9')
+                        {
+
+
+                            return false;
+                        }
+                    }
+                    return true;
+                } else 
+                if (ageInt >= 18)
                 {
                     resulty = true;
                 }
                 else if (ageInt < 18)
                 {
 
-                    
+                    resulty = false;
 
-                    foreach (char c in age)
-                    {
-                        if (age == "")
-                            return false;
-                        else if (c < '1' || c > '9')
-                            
-                        resulty = false;
-                        return false;
-                    }
+
 
                 }
 
-                return true;
+
+
+
             }
 
-
-        
             return false;
-            
-           
-            
 
-            
+
+
+
+
         }
     }
 }
