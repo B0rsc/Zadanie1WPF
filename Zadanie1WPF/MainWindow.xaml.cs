@@ -87,7 +87,9 @@ namespace Zadanie1WPF
           
                 if (!NameValidation(userName))
                 {
-                    Alert.Text = "Błędne dane(imie)";
+                Alert.Text = " ";
+                result.Text = " ";
+                Alert.Text = "Błędne dane(imie)";
                     Alert.Foreground = Brushes.Red;
 
                 }
@@ -115,12 +117,10 @@ namespace Zadanie1WPF
 
 
                 }
-
-
-            
-            else if (!AgeValidation(userAge))
+            else 
             {
-
+                Alert.Text = " ";
+                result.Text = " ";
                 Alert.Text = "Błędne dane(wiek)";
                 Alert.Foreground = Brushes.Red;
 
@@ -129,6 +129,10 @@ namespace Zadanie1WPF
 
 
             }
+
+
+
+
         }
             public bool NameValidation(string userName)
         {
@@ -174,9 +178,7 @@ namespace Zadanie1WPF
                 nullAge = false;
 
 
-            }
-            else
-            {
+                        
 
                 if (ageInt < 0 || ageInt > 150)
                 {
@@ -195,29 +197,31 @@ namespace Zadanie1WPF
                             return false;
                         }
                     }
-                    return true;
-                } else 
-                if (ageInt >= 18)
-                {
-                    resulty = true;
-                }
-                else if (ageInt < 18)
-                {
-
-                    resulty = false;
-
-
-
+                    
                 }
 
 
 
+                
 
             }
+            else
+                if (ageInt >= 18)
+            {
+                resulty = true;
+                return true;
+            }
+            else if (ageInt < 18)
+            {
+
+                resulty = false;
+
+
+                return true;
+            }
+
 
             return false;
-
-
 
 
 
